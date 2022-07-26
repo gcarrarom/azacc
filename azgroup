@@ -1,0 +1,9 @@
+#!/bin/bash
+if [[ -z "$1" ]]; then
+    group=$(az group list -o json | jq -r '.[].name' | fzf)
+    az configure --defaults group=$group
+elif [[ "$1" == "all" ]]; then
+    az configure --defaults group=
+else
+    az configure --defaults group=$1
+fi
